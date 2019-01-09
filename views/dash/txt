@@ -1,0 +1,719 @@
+<?php
+Session::init();
+$page_info = array();
+if (isset($this->title))
+    $page_info = $this->title;
+if (isset($this->nav))
+    $page_nav = $this->nav;
+if (isset($this->nav_sub))
+    $page_nav_sub = $this->nav_sub;
+?>
+<!DOCTYPE html>
+<html lang="en" class="sb-init"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title><?php echo $page_info["name"]; ?> - home</title>
+
+        <!--<link rel="shortcut icon" href="<?php echo URL ?>assets/img/favicon.png">-->
+
+        <meta name="description" content="">
+
+        <!-- CSS -->
+        <link href="<?php echo URL ?>public/css/preload.css" rel="stylesheet">
+        <!-- Compiled in vendors.js -->
+        <!--
+    
+        <link href="assets/css/bootstrap-switch.min.css" rel="stylesheet">
+    
+       
+        <link href="assets/css/slidebars.min.css" rel="stylesheet">
+        <link href="assets/css/lightbox.css" rel="stylesheet">
+        <link href="assets/css/jquery.bxslider.css" rel="stylesheet" />
+        <link href="assets/css/buttons.css" rel="stylesheet">
+        -->
+        <link href="<?php echo URL ?>public/font-awesome/css/font-awesome.css" rel="stylesheet">
+        <link href="<?php echo URL ?>public/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo URL ?>views/index/css/style.css" rel="stylesheet">
+        <link href="<?php echo URL ?>views/index/css/animate.min.css" rel="stylesheet">
+        <link href="<?php echo URL ?>views/index/css/vendors.css" rel="stylesheet">
+        <link href="<?php echo URL ?>views/index/css/shCore.css" rel="stylesheet">
+        <link href="<?php echo URL ?>views/index/css/css.css" rel="stylesheet " title="default">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="assets/js/html5shiv.min.js"></script>
+            <script src="assets/js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <!-- Preloader -->
+    <body style="overflow: visible;"><div style="position:fixed;top:0px;left:0px;width:0;height:0;" id="scrollzipPoint"></div><div id="preloader" style="display: none;">
+            <div id="status" style="display: none;">&nbsp;</div>
+        </div>
+
+        <div id="sb-site">
+            <div class="boxed">
+
+                <header id="header-full-top" class="hidden-xs header-full">
+                    <div class="container">
+                        <?php ?>
+                        <div class="header-full-title" style="  background-image: url(<?php echo IMG_URL . $page_info["pix"]; ?>);">
+                            <h1 class="animated fadeInRight"><a href=""><span> <?php echo $page_info["name"]; ?></span></a></h1>
+                            <p class="animated fadeInRight"> <?php echo $page_info["description"]; ?></p>
+                        </div>
+                        <nav class="top-nav">
+                            <!--            <ul class="top-nav-social hidden-sm">
+                                            <li><a href="#" class="animated fadeIn animation-delay-6 rss"><i class="fa fa-rss"></i></a></li>
+                                            <li><a href="#" class="animated fadeIn animation-delay-7 twitter"><i class="fa fa-twitter"></i></a></li>
+                                            <li><a href="#" class="animated fadeIn animation-delay-8 facebook"><i class="fa fa-facebook"></i></a></li>
+                                            <li><a href="#" class="animated fadeIn animation-delay-9 google-plus"><i class="fa fa-google-plus"></i></a></li>
+                                            <li><a href="#" class="animated fadeIn animation-delay-9 instagram"><i class="fa fa-instagram"></i></a></li>
+                                            <li><a href="#" class="animated fadeIn animation-delay-8 vine"><i class="fa fa-vine"></i></a></li>
+                                            <li><a href="#" class="animated fadeIn animation-delay-7 linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                            <li><a href="#" class="animated fadeIn animation-delay-6 flickr"><i class="fa fa-flickr"></i></a></li>
+                                        </ul>-->
+
+                            <div class="dropdown animated fadeInDown animation-delay-11">
+                                <?php if (!Session::get('loggedin')) { ?>
+                                    <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Login</a>
+                                    <?php
+                                } else {
+                                    echo ' <a href="' . URL . 'home/logout"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a>';
+                                }
+                                ?>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-login-box animated flipCenter">
+                                    <form role="form" id="joinus">
+                                        <h4>User Form</h4>
+
+                                        <div class="form-group">
+                                            <div class="input-group login-input">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                <input type="email"  required="" class="form-control" id="username" placeholder="Email">
+                                                <span class="alert-danger in-email shownot text-center">Email does not Exit</span>
+                                                <span class="alert-danger reg-email shownot ">Email already Exit</span>
+                                            </div>
+                                            <br>
+                                            <div class="input-group login-input">
+                                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                                <input type="password"  required=""class="form-control" id="password" placeholder="Password">
+                                                <span class="alert-danger in-pass shownot">Invalid Password</span>
+                                                <span class="alert-danger reg-pass shownot">Password too weak</span>
+                                                <span class="alert-success login-success shownot">Login Successfully</span>
+                                                <span class="alert-success reg-success shownot"> Registration Completed</span>
+                                            </div>
+                                            <button type="button" class="btn btn-ar btn-primary pull-right" id="register">Register</button>
+                                            <button type="submit" class="btn btn-ar btn-warning pull-left " id="login">Login</button>
+
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div> <!-- dropdown -->
+
+                            <!--                            <div class="dropdown animated fadeInDown animation-delay-13">
+                                                            <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i></a>
+                                                            <div class="dropdown-menu dropdown-menu-right dropdown-search-box animated fadeInUp">
+                                                                <form role="form">
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control" placeholder="Search...">
+                                                                        <span class="input-group-btn">
+                                                                            <button class="btn btn-ar btn-primary" type="button">Go!</button>
+                                                                        </span>
+                                                                    </div> /input-group 
+                                                                </form>
+                                                            </div>
+                                                        </div>  dropdown -->
+                        </nav>
+                    </div> <!-- container -->
+                </header> <!-- header-full -->
+                <nav class="navbar navbar-default navbar-header-full navbar-dark yamm navbar-static-top" role="navigation" id="header">
+                    <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <a id="ar-brand" class="navbar-brand hidden-lg hidden-md hidden-sm" href=""> <span><?php echo $page_info["name"]; ?></span></a>
+                        </div> <!-- navbar-header -->
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="pull-right">
+                            <a href="javascript:void(0);" class="sb-icon-navbar sb-toggle-right"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav text-capitalize">
+                                <?php
+                                $more_nav = array();
+                                foreach ($page_nav as $key => $value) {
+                                    $met="";
+                                    foreach ($page_nav_sub as $key1 => $value2) {
+                                        if ($value2["nav_id"] == $value["name"]) {
+                                            $met="set";
+                                            if (!isset($more_nav[$value['name']])) {
+                                                $i[$value['name']] = 0;
+                                                $more_nav[$value['name']] = "";
+                                            }
+                                            if ($i[$value['name']] % 5 == 0) {
+                                                $more_nav[$value['name']].= "  <div class='col-lg-3 col-md-6 col-sm-6 col-megamenu' style='height: 336px;'> <div class='megamenu-block'>  <ul>";
+                                            }
+                                            $more_nav[$value['name']].= " <li><a href='" . URL . $value2['url'] . "'><i class='fa fa-arrow-circle-right'></i>" . $value2['name'] . "</a></li>";
+                                            if ($i[$value['name']]++ % 5 == 4) {
+                                                $more_nav[$value['name']].="</ul></div>  </div>";
+                                            }
+
+                                            continue;
+                                        }
+                                    }
+                                    if(!empty($met)){
+                                        continue;
+                                    }
+                                    ?>           
+                                    <li class="">
+                                        <a href="<?php echo URL . $value["url"]; ?>"> <?php echo $value["name"]; ?> </a>
+                                    </li>
+                                <?php }
+                                ?>
+                                <?php
+                                foreach ($more_nav as $key => $value) {
+                                    ?>
+                                    <li class="dropdown yamm-fw">
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><?php echo $key; ?></a>
+                                        <ul class="dropdown-menu dropdown-menu-left animated-2x animated fadeIn" style="">
+                                            <li style="">
+                                                <div class="yamm-content" style="">
+                                                    <div class="row" style="">
+                                                        <?php echo $value; ?> 
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <?php
+                                }
+                                ?>     
+
+                            </ul>
+                        </div><!-- navbar-collapse -->
+                    </div><!-- container -->
+                </nav>
+
+                <section class="carousel-section">
+                    <div id="carousel-example-generic" class="carousel carousel-razon slide" data-ride="carousel" data-interval="5000">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-7">
+                                            <div class="carousel-caption">
+                                                <div class="carousel-text">
+                                                    <h1 class="animated fadeInDownBig animation-delay-7 carousel-title">Design Your Occasion</h1>
+                                                    <h2 class="animated fadeInDownBig animation-delay-5  crousel-subtitle">Make your occasion a life event</h2>
+                                                    <ul class="list-unstyled carousel-list">
+                                                        <li class="animated bounceInLeft animation-delay-11"><i class="fa fa-check"></i>Upload your card</li>
+                                                        <li class="animated bounceInLeft animation-delay-13"><i class="fa fa-check"></i>Invite people</li>
+                                                        <li class="animated bounceInLeft animation-delay-15"><i class="fa fa-check"></i>relax</li>
+                                                    </ul>
+                                                    <!--<p class="animated fadeInUpBig animation-delay-17">Lorem ipsum dolor sit amet consectetur adipisicing elit. In rerum maxime quis tenetur dolor <span>recusandae a nulla</span> qui enim dolorem.</p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-5 hidden-xs carousel-img-wrap">
+                                            <div class="carousel-img">
+                                                <img src="<?php echo URL ?>views/index/resource/pre.png" class="img-responsive animated bounceInUp animation-delay-3" alt="Image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item active">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-8">
+                                            <div class="carousel-caption">
+                                                <div class="carousel-text">
+                                                    <h1 class="animated fadeInDownBig animation-delay-7 carousel-title">Customization your Occasions </h1>
+                                                    <h2 class="animated fadeInDownBig animation-delay-5  crousel-subtitle">Configure your own occasion style</h2>
+                                                    <ul class="list-unstyled carousel-list">
+                                                        <li class="animated bounceInLeft animation-delay-11"><i class="fa fa-check"></i>Several Available template</li>
+                                                        <li class="animated bounceInLeft animation-delay-13"><i class="fa fa-check"></i>Key in your data</li>
+                                                        <li class="animated bounceInLeft animation-delay-15"><i class="fa fa-check"></i>Invite people</li>
+                                                        <li class="animated bounceInLeft animation-delay-15"><i class="fa fa-check"></i>Done</li>
+                                                    </ul>
+                                                    <!--<p class="animated fadeInUpBig animation-delay-17">Lorem ipsum dolor sit amet consectetur adipisicing elit. In rerum maxime quis tenetur dolor <span>recusandae a nulla</span> qui enim dolorem.</p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-4 hidden-xs carousel-img-wrap">
+                                            <div class="carousel-img">
+                                                <img src="<?php echo URL ?>views/index/resource/pre2.png" class="img-responsive animated bounceInUp animation-delay-3" alt="Image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-7 col-sm-9">
+                                            <div class="carousel-caption">
+                                                <div class="carousel-text">
+                                                    <h1 class="animated fadeInDownBig animation-delay-7 carousel-title">Looking for Occasion</h1>
+                                                    <h2 class="animated fadeInDownBig animation-delay-5  crousel-subtitle">Make your self comfortable with the occasion you are looking for </h2>
+                                                    <ul class="list-unstyled carousel-list">
+                                                        <li class="animated bounceInLeft animation-delay-11"><i class="fa fa-check"></i>Locate occasions</li>
+                                                        <li class="animated bounceInLeft animation-delay-13"><i class="fa fa-check"></i>Pick your perfect match</li>
+                                                        <li class="animated bounceInLeft animation-delay-15"><i class="fa fa-check"></i>Get ready to be there</li>
+                                                    </ul>
+                                                    <!--<p class="animated fadeInUpBig animation-delay-17">Lorem ipsum dolor sit amet consectetur adipisicing elit. In rerum maxime quis tenetur dolor <span>recusandae a nulla</span> qui enim dolorem.</p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-5 col-sm-3 hidden-xs carousel-img-wrap">
+                                            <div class="carousel-img">
+                                                <img src="<?php echo URL ?>views/index/resource/pre3.png" class="img-responsive animated bounceInUp animation-delay-3" alt="Image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Controls -->
+                        <!--                        <a class="left carousel-control" href="#" data-slide="prev">
+                                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                                </a>
+                                                <a class="right carousel-control" href="#" data-slide="next">
+                                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                                </a>-->
+                    </div>
+                </section> <!-- carousel -->
+
+                <section class="margin-bottom">
+                    <div class="container">
+                        <div class="row">
+                            <!-- ******FEATURES****** --> 
+                            <section id="features" class="features section">
+                                <div class="container">
+                                    <div class="row">
+                                        <h2 class="title text-center sr-only">Features</h2>
+                                        <div class="item col-md-3 col-sm-6 col-xs-12 text-center">
+                                            <div class="icon animated fadeInUp delayp1" style="opacity: 0;">
+                                                <i class="fa fa-cloud-upload"></i>                
+                                            </div><!--//icon-->
+                                            <div class="content">
+                                                <h3 class="title">Anniversary</h3>
+                                                <p>Your birthday event in our care  </p>  
+                                                <button class="modal-trigger btn btn-link" data-toggle="modal" data-target="feature-modal-1">Find out more</button>
+                                            </div><!--//content-->               
+                                        </div><!--//item-->
+                                        <div class="item col-md-3 col-sm-6 col-xs-12 text-center">
+                                            <div class="icon animated fadeInUp delayp1" style="opacity: 0;">
+                                                <i class="fa fa-rocket"></i>                
+                                            </div><!--//icon-->
+                                            <div class="content">
+                                                <h3 class="title">Wedding</h3>
+                                                <p>Your wedding event in our care  </p>  
+                                                <button class="modal-trigger btn btn-link" data-toggle="modal" data-target="feature-modal-1">Find out more</button>
+                                            </div><!--//content-->              
+                                        </div><!--//item-->
+                                        <div class="item col-md-3 col-sm-6 col-xs-12 text-center">
+                                            <div class="icon animated fadeInUp delayp1" style="opacity: 0;">
+                                                <i class="fa fa-rocket"></i>                
+                                            </div><!--//icon-->
+                                            <div class="content">
+                                                <h3 class="title">Sport</h3>
+                                                <p>Your sport event in our care  </p>  
+                                                <button class="modal-trigger btn btn-link" data-toggle="modal" data-target="feature-modal-1">Find out more</button>
+                                            </div><!--//content-->              
+                                        </div><!--//item-->
+                                        <div class="item col-md-3 col-sm-6 col-xs-12 text-center">
+                                            <div class="icon animated fadeInUp delayp1" style="opacity: 0;">
+                                                <i class="fa fa-rocket"></i>                
+                                            </div><!--//icon-->
+                                            <div class="content">
+                                                <h3 class="title">Others</h3>
+                                                <p>All event in our care  </p>  
+                                                <button class="modal-trigger btn btn-link" data-toggle="modal" data-target="feature-modal-1">Find out more</button>
+                                            </div><!--//content-->              
+                                        </div><!--//item-->
+
+                                    </div><!--//row-->
+
+                                    <div class="row feature-row-last">
+                                        <h2 class="section-title">Upcoming Events</h2>
+                                        <h2 class="title text-center sr-only">Recent General Events</h2>
+                                        <div class="item col-md-4 col-sm-6 col-xs-12 text-center">
+                                            <div class="icon animated fadeInUp delayp1" style="opacity: 0;">
+                                                <i class="fa fa-calendar"></i>                
+                                            </div><!--//icon-->
+                                            <div class="content">
+                                                <h3 class="title">Party</h3>
+                                                <p><span class="title">Date: </span> yyyy.mm.dd</p>
+                                                <p><span class="title">Time:</span> hh:mm gg</p>
+                                                <p><span class="title">Venue:</span> here or there</p>
+                                                <button class="modal-trigger btn btn-link" data-toggle="modal" data-target="feature-modal-1">Find out more</button>
+                                            </div><!--//content-->               
+                                        </div><!--//item-->
+                                        <div class="item col-md-4 col-sm-6 col-xs-12 text-center">
+                                            <div class="icon animated fadeInUp delayp1" style="opacity: 0;">
+                                                <i class="fa fa-calendar"></i>                
+                                            </div><!--//icon-->
+                                            <div class="content">
+                                                <h3 class="title">Party</h3>
+                                                <p><span class="title">Date: </span> yyyy.mm.dd</p>
+                                                <p><span class="title">Time:</span> hh:mm gg</p>
+                                                <p><span class="title">Venue:</span> here or there</p>
+                                                <button class="modal-trigger btn btn-link" data-toggle="modal" data-target="feature-modal-1">Find out more</button>
+                                            </div><!--//content-->               
+                                        </div><!--//item-->     <div class="item col-md-4 col-sm-6 col-xs-12 text-center">
+                                            <div class="icon animated fadeInUp delayp1" style="opacity: 0;">
+                                                <i class="fa fa-calendar"></i>                
+                                            </div><!--//icon-->
+                                            <div class="content">
+                                                <h3 class="title">Party</h3>
+                                                <p><span class="title">Date: </span> yyyy.mm.dd</p>
+                                                <p><span class="title">Time:</span> hh:mm gg</p>
+                                                <p><span class="title">Venue:</span> here or there</p>
+                                                <button class="modal-trigger btn btn-link" data-toggle="modal" data-target="feature-modal-1">Find out more</button>
+                                            </div><!--//content-->               
+                                        </div><!--//item-->
+                                    </div><!--//row-->
+                                </div><!--//container-->
+                            </section><!--//features-->
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section-lines">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="home-devices">
+                                    <h3>How It Works</h3>
+                                    <p>Create Event ... Invite people of your choice ... Get Prepared</p>
+                                    <p>Invite people of your choice to your event by forwarding a message to their email or phone to catch their attention</p>
+                                    <ul class="icon-devices">
+                                        <li class="active"><a href="#desktop" data-toggle="tab"><i class="fa fa-circle-o-notch"></i></a></li>
+                                        <li><a href="#laptop" data-toggle="tab"><i class="fa fa-circle-o-notch"></i></a></li>
+                                        <li><a href="#tablet" data-toggle="tab"><i class="fa fa-circle-o-notch"></i></a></li>
+                                        <li><a href="#mobile" data-toggle="tab"><i class="fa fa-circle-o-notch"></i></a></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="desktop">
+                                        <img src="<?php echo URL ?>views/index/resource/mac.png" alt="" class="img-responsive">
+                                    </div>
+                                    <div class="tab-pane" id="laptop">
+                                        <img src="<?php echo URL ?>views/index/resource/macpro.png" alt="" class="img-responsive">
+                                    </div>
+                                    <div class="tab-pane" id="tablet">
+                                        <img src="<?php echo URL ?>views/index/resource/ipad.png" alt="" class="img-responsive">
+                                    </div>
+                                    <div class="tab-pane" id="mobile">
+                                        <img src="<?php echo URL ?>views/index/resource/iphone.png" alt="" class="img-responsive">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="container">
+                    <section class="margin-bottom">
+                        <p class="lead lead-lg text-center primary-color margin-bottom">Knows the <strong>Site</strong> better</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h2 class="no-margin-top">About us</h2>
+                                <p> all about us</p>
+                                <p>all about us</p>
+                                <p> all about us</p>
+                                <p>all about us</p>
+                                <p> all about us</p>
+                                <p>all about us</p>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading panel-heading-link">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                <i class="fa fa-lightbulb-o"></i>  Services
+                                            </a>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <p> all about us</p>
+                                                <p>all about us</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading panel-heading-link">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="collapsed">
+                                                <i class="fa fa-user"></i> Quality and Support
+                                            </a>
+                                        </div>
+                                        <div id="collapseThree" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <p> all about us</p>
+                                                <p>all about us</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </section>
+
+<!--                    <section>
+                        <p class="slogan text-center">Discover our projects and the rigorous process of <span>creation</span>. Our principles are <span>creativity</span>, <span>design</span>, <span>experience</span> and <span>knowledge</span>. We are backed by 20 years of <span>research</span>.</p>
+                        <h2 class="section-title">Our Clients</h2>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="bxslider-controls">
+                                    <span id="bx-prev5"><a class="bx-prev" href="">&lt;</a></span>
+                                    <span id="bx-next5"><a class="bx-next" href="">&gt;</a></span>
+                                </div>
+                                <div class="bx-wrapper" style="max-width: 100%;"><div class="bx-viewport" aria-live="polite" style="width: 100%; overflow: hidden; position: relative; height: 166px;"><ul class="bxslider" id="home-block" style="width: 4215%; position: relative; -webkit-transition-duration: 0s; transition-duration: 0s; -webkit-transform: translate3d(-555px, 0px, 0px);"><li style="float: left; list-style: none; position: relative; width: 555px;" class="bx-clone" aria-hidden="true">
+                                                <blockquote class="blockquote-color">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante ultricies nisi vel augue quam semper libero.</p>
+                                                    <footer>Brian Krzanich, Intel CEO</footer>
+                                                </blockquote>
+                                            </li>
+                                            <li style="float: left; list-style: none; position: relative; width: 555px;" aria-hidden="false">
+                                                <blockquote class="blockquote-color">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante ultricies nisi vel augue quam semper libero.</p>
+                                                    <footer>Brian Krzanich, Intel CEO</footer>
+                                                </blockquote>
+                                            </li>
+                                            <li aria-hidden="true" style="float: left; list-style: none; position: relative; width: 555px;">
+                                                <blockquote class="blockquote-color">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante ultricies nisi vel augue quam semper libero.</p>
+                                                    <footer>Brian Krzanich, Intel CEO</footer>
+                                                </blockquote>
+                                            </li>
+                                            <li aria-hidden="true" style="float: left; list-style: none; position: relative; width: 555px;">
+                                                <blockquote class="blockquote-color">
+                                                    <p>Dolore totam at ea reiciendis suscipit a tempore cum nisi aspernatur nisi alias posuere erat a ante posuere erat a ante ultricies ultricies nisi vel augue quam semper conse erat quuntur.</p>
+                                                    <footer>Sheldon Cooper, Physical Quantum</footer>
+                                                </blockquote>
+                                            </li>
+                                            <li style="float: left; list-style: none; position: relative; width: 555px;" aria-hidden="true">
+                                                <blockquote class="blockquote-color">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante ultricies nisi vel augue quam semper libero.</p>
+                                                    <footer>Brian Krzanich, Intel CEO</footer>
+                                                </blockquote>
+                                            </li>
+                                            <li style="float: left; list-style: none; position: relative; width: 555px;" class="bx-clone" aria-hidden="true">
+                                                <blockquote class="blockquote-color">
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante ultricies nisi vel augue quam semper libero.</p>
+                                                    <footer>Brian Krzanich, Intel CEO</footer>
+                                                </blockquote>
+                                            </li></ul></div><div class="bx-controls"></div></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 col-xs-6"><img src="<?php echo URL ?>views/index/resource/intel.png" alt="" class="img-responsive"></div>
+                                    <div class="col-md-3 col-sm-3 col-xs-6"><img src="<?php echo URL ?>views/index/resource/microsoft.png" alt="" class="img-responsive"></div>
+                                    <div class="col-md-3 col-sm-3 col-xs-6"><img src="<?php echo URL ?>views/index/resource/nokia.png" alt="" class="img-responsive"></div>
+                                    <div class="col-md-3 col-sm-3 col-xs-6"><img src="<?php echo URL ?>views/index/resource/samsung.png" alt="" class="img-responsive"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 col-xs-6"><img src="<?php echo URL ?>views/index/resource/anz.png" alt="" class="img-responsive"></div>
+                                    <div class="col-md-3 col-sm-3 col-xs-6"><img src="<?php echo URL ?>views/index/resource/maxis.png" alt="" class="img-responsive"></div>
+                                    <div class="col-md-3 col-sm-3 col-xs-6"><img src="<?php echo URL ?>views/index/resource/sony.png" alt="" class="img-responsive"></div>
+                                    <div class="col-md-3 col-sm-3 col-xs-6"><img src="<?php echo URL ?>views/index/resource/hp.png" alt="" class="img-responsive"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>-->
+
+                </div>
+
+                <aside id="footer-widgets">
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-md-5">
+                                <div class="footer-widget">
+                                    <h3 class="footer-widget-title">Recent Events</h3>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-3 col-xs-6">
+                                            <a href="#" class="thumbnail"><img src="<?php echo URL ?>views/index/resource/wf1.jpg" class="img-responsive" alt="Image"></a>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-3 col-xs-6">
+                                            <a href="#" class="thumbnail"><img src="<?php echo URL ?>views/index/resource/wf2.jpg" class="img-responsive" alt="Image"></a>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-3 col-xs-6">
+                                            <a href="#" class="thumbnail"><img src="<?php echo URL ?>views/index/resource/wf3.jpg" class="img-responsive" alt="Image"></a>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-3 col-xs-6">
+                                            <a href="#" class="thumbnail"><img src="<?php echo URL ?>views/index/resource/wf4.jpg" class="img-responsive" alt="Image"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <h3 class="footer-widget-title">Sitemap</h3>
+                                <ul class="list-unstyled three_cols">
+                                    <li><a href="<?php echo URL ?>page_about.html">Categories</a></li>
+                                    <li><a href="<?php echo URL ?>page_about2.html">Events</a></li>
+
+                                    <li><a href="<?php echo URL ?>page_profile.html">About Us</a></li>
+                                    <li><a href="<?php echo URL ?>page_profile.html">Contact Us</a></li>
+                                    <li><a href="<?php echo URL ?>page_profile2.html">FAQ</a></li>
+                                    <li><a href="<?php echo URL ?>page_profile2.html">support</a></li>
+                                    <li><a href="<?php echo URL ?>page_about3.html">Others</a></li>
+                                    <li><a href="<?php echo URL ?>page_team.html">Login</a></li>
+                                    <li><a href="<?php echo URL ?>page_team2.html">Sign Up</a></li>
+
+                                </ul>
+                                <div class="footer-widget">
+                                    <h3 class="footer-widget-title">User's Conner</h3>
+                                    <div class="media  col-lg-6 col-md-6 col-sm-3 col-xs-6" >
+                                        <a class="pull-left" href="#"><img class="media-object" src="<?php echo URL ?>views/index/resource/m2.jpg" width="75" height="75" alt="image"></a>
+                                        <div class="media-body">
+                                            <h4 class="media-heading"><a href="#">User Testimony</a></h4>
+                                            <small>August 18, 2013</small>
+                                        </div>
+                                    </div>
+                                    <div class="media col-lg-6 col-md-6 col-sm-3 col-xs-6">
+                                        <a class="pull-left" href="#"><img class="media-object" src="<?php echo URL ?>views/index/resource/m4.jpg" width="75" height="75" alt="image"></a>
+                                        <div class="media-body">
+                                            <h4 class="media-heading"><a href="#">Testimony</a></h4>
+                                            <small>October 9, 2013</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- row -->
+                    </div> <!-- container -->
+                </aside> <!-- footer-widgets -->
+                <footer id="footer">
+                    <p>© <?php echo date("Y"); ?> <a href="#">Company Name</a>, inc. All rights reserved.</p>
+                </footer>
+
+            </div> <!-- boxed -->
+        </div> <!-- sb-site -->
+
+        <div class="sb-slidebar sb-right">
+            <!--            <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div> /input-group -->
+
+
+
+            <h2 class="slidebar-header no-margin-bottom">Navigation</h2>
+            <ul class="slidebar-menu">
+                <li><a href="">Home</a></li>
+                <li><a href="">Dashboard</a></li>
+                <li class="  bg-lt-black ">
+                    <div class="panel-heading bg-lt-black   panel-heading-link">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="collapsed">
+                            Events & Occasions
+                        </a>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse">
+                        <ul class="panel-body bg-lt-black ">
+                            <li><a href="<?php echo URL ?>btn_basic_buttons.html"><i class="fa fa-arrow-circle-right"></i> Birthday</a></li>
+                            <li><a href="<?php echo URL ?>btn_library_buttons.html"><i class="fa fa-arrow-circle-right"></i> Weddings </a></li>
+                            <li><a href="<?php echo URL ?>btn_library_buttons.html"><i class="fa fa-arrow-circle-right"></i> Anniversary </a></li>
+                            <li><a href="<?php echo URL ?>btn_library_buttons.html"><i class="fa fa-arrow-circle-right"></i> Burial</a></li>
+                            <li><a href="<?php echo URL ?>btn_social_buttons.html"><i class="fa fa-arrow-circle-right"></i> Musical Concert</a></li>
+
+                            <li><a href="<?php echo URL ?>btn_basic_buttons.html"><i class="fa fa-arrow-circle-right"></i> Night Life</a></li>
+                            <li><a href="<?php echo URL ?>btn_library_buttons.html"><i class="fa fa-arrow-circle-right"></i> Holiday </a></li>
+                            <li><a href="<?php echo URL ?>btn_library_buttons.html"><i class="fa fa-arrow-circle-right"></i> Training </a></li>
+                            <li><a href="<?php echo URL ?>btn_library_buttons.html"><i class="fa fa-arrow-circle-right"></i> Worship/Sermon </a></li>
+                            <li><a href="<?php echo URL ?>btn_social_buttons.html"><i class="fa fa-arrow-circle-right"></i> Awareness</a></li>
+
+                            <li><a href="<?php echo URL ?>btn_basic_buttons.html"><i class="fa fa-arrow-circle-right"></i> Launching</a></li>
+                            <li><a href="<?php echo URL ?>btn_library_buttons.html"><i class="fa fa-arrow-circle-right"></i> Fashion </a></li>
+                            <li><a href="<?php echo URL ?>btn_library_buttons.html"><i class="fa fa-arrow-circle-right"></i> Party </a></li>
+                            <li><a href="<?php echo URL ?>btn_library_buttons.html"><i class="fa fa-arrow-circle-right"></i> Church </a></li>
+                            <li><a href="<?php echo URL ?>btn_social_buttons.html"><i class="fa fa-arrow-circle-right"></i> Sport</a></li>
+
+                            <li><a href="<?php echo URL ?>btn_social_buttons.html"><i class="fa fa-arrow-circle-right"></i> Others</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="<?php echo URL ?>page_about3.html">Support</a></li>
+                <li><a href="<?php echo URL ?>blog.html">About Us</a></li>
+                <li><a href="<?php echo URL ?>page_contact.html">Contact</a></li>
+            </ul>
+
+            <h2 class="slidebar-header">Social Media</h2>
+            <div class="slidebar-social-icons">
+                <a href="#" class="social-icon-ar rss"><i class="fa fa-rss"></i></a>
+                <a href="#" class="social-icon-ar facebook"><i class="fa fa-facebook"></i></a>
+                <a href="#" class="social-icon-ar twitter"><i class="fa fa-twitter"></i></a>
+                <a href="#" class="social-icon-ar pinterest"><i class="fa fa-pinterest"></i></a>
+                <a href="#" class="social-icon-ar instagram"><i class="fa fa-instagram"></i></a>
+                <a href="#" class="social-icon-ar wordpress"><i class="fa fa-wordpress"></i></a>
+                <a href="#" class="social-icon-ar linkedin"><i class="fa fa-linkedin"></i></a>
+                <a href="#" class="social-icon-ar flickr"><i class="fa fa-flickr"></i></a>
+                <a href="#" class="social-icon-ar vine"><i class="fa fa-vine"></i></a>
+                <a href="#" class="social-icon-ar dribbble"><i class="fa fa-dribbble"></i></a>
+            </div>
+        </div> <!-- sb-slidebar sb-right -->
+        <div id="back-top" style="display: none;">
+            <a href="header"><i class="fa fa-chevron-up"></i></a>
+        </div>
+
+        <!-- Scripts -->
+        <!-- Compiled in vendors.js -->
+        <!--
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/jquery.cookie.js"></script>
+        <script src="assets/js/imagesloaded.pkgd.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/bootstrap-switch.min.js"></script>
+        <script src="assets/js/wow.min.js"></script>
+        <script src="assets/js/slidebars.min.js"></script>
+        <script src="assets/js/jquery.bxslider.min.js"></script>
+        <script src="assets/js/holder.js"></script>
+        <script src="assets/js/buttons.js"></script>
+        <script src="assets/js/jquery.mixitup.min.js"></script>
+        <script src="assets/js/circles.min.js"></script>
+        <script src="assets/js/masonry.pkgd.min.js"></script>
+        <script src="assets/js/jquery.matchHeight-min.js"></script>
+        -->
+
+        <script src="<?php echo URL ?>views/index/resource/vendors.js"></script>
+
+        <script src="<?php echo URL ?>views/index/resource/styleswitcher.js"></script>
+
+        <!-- Syntaxhighlighter -->
+        <script src="<?php echo URL ?>views/index/resource/shCore.js"></script>
+        <script src="<?php echo URL ?>views/index/resource/shBrushXml.js"></script>
+        <script src="<?php echo URL ?>views/index/resource/shBrushJScript.js"></script>
+
+        <script src="<?php echo URL ?>views/index/resource/DropdownHover.js"></script>
+        <script src="<?php echo URL ?>views/index/resource/app.js"></script>
+        <script src="<?php echo URL ?>views/index/resource/holder.js"></script>
+        <script src="<?php echo URL ?>views/index/resource/index.js"></script>
+        <script src="<?php echo URL ?>views/index/js/index.js"></script>
+
+
+
+
+    </body></html>
